@@ -1,24 +1,74 @@
 void setup()
 {
   size(512, 512);
-  noLoop();
+  textSize(16);
+  textAlign(CENTER);
+  frameRate(15);
+  init();
 }
-void draw()
+
+ArrayList<Die> dices = new ArrayList<>();
+float rollD = 0;
+long pauseTill = 0;
+
+void init()
 {
   background(color(#91dbe4));
   int padding = 6, numDice = 10, diceSize = Die.DIE_SIZE;
   int sidePadding = (512 - (numDice * (diceSize + padding))) / 2;
+  
   for (int row = 0; row < numDice; row++) {
     for (int col = 0; col < numDice; col++) {
-      new Die((row * (diceSize + padding)) + sidePadding, (col * (diceSize + padding)) + sidePadding)
-        .roll()
-        .show();
+      dices.add(new Die((row * (diceSize + padding)) + sidePadding, (col * (diceSize + padding)) + sidePadding).roll());
     }
+  } 
+}
+
+void redrawDice() {
+  clear();
+  for (Die die : dices) {
+    die.roll();
   }
 }
+
+void update(boolean restore) {
+  redrawDice();
+  for (Die die : dices) {
+    die.show();
+  }
+  
+  if (!restore) background(color((int) (Math.random() * 128) + 64, (int) (Math.random() * 128) + 64, (int) (Math.random() * 128) + 64));
+  else background(color(#91dbe4));
+}
+
+void draw() {
+  if (rollD != 0) {
+    if (rollD < 1.1 && System.currentTimeMillis() >= pauseTill) {
+      update(false);
+      
+      rollD *= 1.2;
+      if (rollD > 1.1) {
+        rollD = 0;
+        pauseTill = 0;
+        update(true);
+      } else pauseTill = System.currentTimeMillis() + (long) (rollD * 1000); 
+    }
+  }
+  
+    int total = 0;
+  for (Die die : dices) { total += die.sideShown; }
+  String str = String.format("Dice: %d; sum: %d", dices.size(), total);
+  text(str, 512 / 2, 16);
+  
+  for (Die die : dices) {
+    die.show();
+  }
+}
+
+
 void mousePressed()
 {
-  redraw();
+  if (rollD == 0) rollD = 0.1;
 }
 
 class Die //models one single dice cube
@@ -27,6 +77,7 @@ class Die //models one single dice cube
   static final int DIE_SIZE = 40;
   int x, y;
   int sideShown;
+  color centerColor;
 
   Die(int x, int y) //constructor
   {
@@ -39,6 +90,7 @@ class Die //models one single dice cube
   {
     //your code here
     this.sideShown = (int) (Math.random() * 6) + 1;
+    this.centerColor = color((int) (Math.random() * 192), (int) (Math.random() * 192), (int) (Math.random() * 192));
     return this;
   }
   Die show()
@@ -48,14 +100,14 @@ class Die //models one single dice cube
     translate(x, y);
     
     stroke(color(#3c2207));
-    square(0, 0, Die.DIE_SIZE);
+    rect(0, 0, Die.DIE_SIZE, Die.DIE_SIZE, Die.DIE_SIZE / 6);
     
-    fill(color(0, 0, 0));
+    fill(this.centerColor);
     final int CIRCLE_SIZE = 6;
     
-    switch(this.sideShown) {
+    switch(this.sideShown) { // what da sigma
       default:
-        throw new RuntimeException("??");
+        throw new RuntimeException("?? bad code L");
        case 1:
         circle(Die.DIE_SIZE / 2, Die.DIE_SIZE / 2, CIRCLE_SIZE);
         break;
