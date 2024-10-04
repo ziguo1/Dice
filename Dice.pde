@@ -117,10 +117,11 @@ void draw() {
       } else pauseTill = System.currentTimeMillis() + (long) (rollD * 1000); 
     }
   }
-  
-    int total = 0;
+
+  int total = 0;
   for (Die die : dices) { total += die.sideShown; }
   String str = "Dice: " + dices.size() + "; sum: " + total;
+  fill(color(0, 0, 0));
   text(str, 512 / 2, 16);
   
   for (Die die : dices) {
