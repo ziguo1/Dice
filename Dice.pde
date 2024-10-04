@@ -114,7 +114,7 @@ void draw() {
   
     int total = 0;
   for (Die die : dices) { total += die.sideShown; }
-  String str = String.format("Dice: %d; sum: %d", dices.size(), total);
+  String str = "Dice: " + dices.size() + "; sum: " + total;
   text(str, 512 / 2, 16);
   
   for (Die die : dices) {
