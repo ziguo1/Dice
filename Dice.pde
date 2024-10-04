@@ -64,7 +64,7 @@ void setup()
   init();
 }
 
-ArrayList<Die> dices = new ArrayList<>();
+ArrayList dices = new ArrayList();
 float rollD = 0;
 long pauseTill = 0;
 
