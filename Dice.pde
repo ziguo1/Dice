@@ -33,6 +33,8 @@ System.err.print = function (chars) {
   }
 };
 
+System.currentTimeMillis = function () { return Date.now(); }
+
 System.err.println = function (chars) {
   System.err.print(chars + "\n");
 };
