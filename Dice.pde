@@ -153,7 +153,7 @@ class Die //models one single dice cube
   Die show()
   {
     //your code here
-    push();
+    pushMatrix();
     translate(x, y);
     
     stroke(color(60, 34, 7));
@@ -201,7 +201,7 @@ class Die //models one single dice cube
         break;
     }
 
-    pop();
+    popMatrix();
     return this;
   }
 }
