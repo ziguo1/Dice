@@ -9,6 +9,10 @@ void square(float x, float y, float extent) {
   rect(x, y, extent, extent)
 }
 
+void clear() {
+  background(color(255, 255, 255));
+}
+
 void delay(int length) {
   long blockTill = Date.now() + length;
   while (Date.now() <= blockTill) {}
