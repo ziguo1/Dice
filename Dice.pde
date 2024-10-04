@@ -70,7 +70,7 @@ long pauseTill = 0;
 
 void init()
 {
-  background(color(#91dbe4));
+  background(color(145, 219, 228));
   int padding = 6, numDice = 10, diceSize = Die.DIE_SIZE;
   int sidePadding = (512 - (numDice * (diceSize + padding))) / 2;
   
@@ -95,7 +95,7 @@ void update(boolean restore) {
   }
   
   if (!restore) background(color((int) (Math.random() * 128) + 64, (int) (Math.random() * 128) + 64, (int) (Math.random() * 128) + 64));
-  else background(color(#91dbe4));
+  else background(color(145, 219, 228));
 }
 
 void draw() {
@@ -156,7 +156,7 @@ class Die //models one single dice cube
     push();
     translate(x, y);
     
-    stroke(color(#3c2207));
+    stroke(color(60, 34, 7));
     rect(0, 0, Die.DIE_SIZE, Die.DIE_SIZE, Die.DIE_SIZE / 6);
     
     fill(this.centerColor);
